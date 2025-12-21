@@ -1,0 +1,38 @@
+import express from "express";
+import { allusers, createuser, editUser, loginController, userDelete, VerifyEmail } from "../controller/User.Controller.js";
+
+const routeruser = express.Router();
+
+// ==========
+// route ambil semua user
+// ==========
+routeruser.get("/", allusers);
+
+// =============
+// membuat user / registrasi
+// =============
+routeruser.post("/", createuser);
+
+// ==========
+// login
+// ==========
+routeruser.post("/login", loginController);
+
+// ========
+// ========
+// ========
+routeruser.get("/verify", VerifyEmail);
+
+
+// =========
+// update user
+// =========
+routeruser.patch("/edit/:id", editUser);
+
+// ===========
+// delete user
+// ===========
+routeruser.delete("/delete/:id", userDelete);
+
+export default routeruser;
+

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verifikasi Akun</title>
+</head>
+<body style="margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; background-color: #f5f5f5;">
+    <table role="presentation" style="width: 100%; border-collapse: collapse; background-color: #f5f5f5;">
+        <tr>
+            <td style="padding: 40px 20px;">
+                <table role="presentation" style="max-width: 600px; margin: 0 auto; background-color: #ffffff; border-radius: 12px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); overflow: hidden;">
+                    
+                    <!-- Header -->
+                    <tr>
+                        <td style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 40px 30px; text-align: center;">
+                            <div style="width: 80px; height: 80px; background-color: rgba(255, 255, 255, 0.2); border-radius: 50%; margin: 0 auto 20px; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(10px);">
+                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M9 11L12 14L22 4" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M21 12V19C21 19.5304 20.7893 20.0391 20.4142 20.4142C20.0391 20.7893 19.5304 21 19 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H16" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                            <h1 style="margin: 0; color: #ffffff; font-size: 28px; font-weight: 600; letter-spacing: -0.5px;">Verifikasi Akun Anda</h1>
+                        </td>
+                    </tr>
+                    
+                    <!-- Body -->
+                    <tr>
+                        <td style="padding: 40px 30px;">
+                            <p style="margin: 0 0 10px; color: #333333; font-size: 18px; font-weight: 500;">Halo, <span style="color: #667eea;"><%= name %></span>!</p>
+                            
+                            <p style="margin: 20px 0; color: #666666; font-size: 15px; line-height: 1.6;">
+                                Terima kasih telah mendaftar! Kami sangat senang Anda bergabung dengan kami. Untuk menyelesaikan pendaftaran dan mengaktifkan akun Anda, silakan verifikasi alamat email Anda dengan mengklik tombol di bawah ini.
+                            </p>
+                            
+                            <p style="margin: 25px 0; color: #666666; font-size: 15px; line-height: 1.6;">
+                                Proses verifikasi ini membantu kami memastikan keamanan akun Anda.
+                            </p>
+                            
+                            <!-- Button -->
+                            <table role="presentation" style="margin: 35px 0; width: 100%;">
+                                <tr>
+                                    <td style="text-align: center;">
+                                        <a href="<%= url %>" style="display: inline-block; padding: 16px 40px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: #ffffff; text-decoration: none; border-radius: 8px; font-weight: 600; font-size: 16px; box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4); transition: transform 0.2s;">
+                                            Verifikasi Akun Saya
+                                        </a>
+                                    </td>
+                                </tr>
+                            </table>
+                            
+                            <!-- Divider -->
+                            <div style="margin: 35px 0; border-top: 1px solid #e5e5e5;"></div>
+                            
+                            <!-- Alternative Link -->
+                            <p style="margin: 20px 0 10px; color: #999999; font-size: 13px; line-height: 1.5;">
+                                Atau salin dan tempel tautan berikut ke browser Anda:
+                            </p>
+                            <div style="padding: 15px; background-color: #f8f9fa; border-radius: 6px; border-left: 3px solid #667eea;">
+                                <p style="margin: 0; color: #667eea; font-size: 13px; word-break: break-all; font-family: 'Courier New', monospace;">
+                                    <%= url %>
+                                </p>
+                            </div>
+                            
+                            <!-- Warning -->
+                            <div style="margin: 30px 0; padding: 15px; background-color: #fff9e6; border-left: 3px solid #ffc107; border-radius: 6px;">
+                                <p style="margin: 0; color: #856404; font-size: 13px; line-height: 1.5;">
+                                    <strong>⚠️ Penting:</strong> Tautan verifikasi ini akan kedaluwarsa dalam 24 jam. Jika Anda tidak membuat akun ini, abaikan email ini.
+                                </p>
+                            </div>
+                        </td>
+                    </tr>
+                    
+                    <!-- Footer -->
+                    <tr>
+                        <td style="padding: 30px; background-color: #f8f9fa; border-top: 1px solid #e5e5e5;">
+                            <p style="margin: 0 0 15px; color: #999999; font-size: 13px; line-height: 1.6; text-align: center;">
+                                Email ini dikirim ke Anda karena alamat email Anda digunakan untuk mendaftar di layanan kami.
+                            </p>
+                            <p style="margin: 0; color: #999999; font-size: 12px; text-align: center;">
+                                © 2024 Your Company. All rights reserved.
+                            </p>
+                            <div style="text-align: center; margin-top: 20px;">
+                                <a href="#" style="color: #667eea; text-decoration: none; font-size: 12px; margin: 0 10px;">Bantuan</a>
+                                <span style="color: #cccccc;">|</span>
+                                <a href="#" style="color: #667eea; text-decoration: none; font-size: 12px; margin: 0 10px;">Kebijakan Privasi</a>
+                                <span style="color: #cccccc;">|</span>
+                                <a href="#" style="color: #667eea; text-decoration: none; font-size: 12px; margin: 0 10px;">Syarat & Ketentuan</a>
+                            </div>
+                        </td>
+                    </tr>
+                    
+                </table>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
