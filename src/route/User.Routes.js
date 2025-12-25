@@ -7,6 +7,8 @@ import {
   userDelete,
   VerifyEmail,
   getMe,
+  loginAuth,
+  loginCallback
 } from "../controller/User.Controller.js";
 
 const routeruser = express.Router();
@@ -32,7 +34,7 @@ routeruser.post("/login", loginController);
 routeruser.get("/me", getMe);
 
 // ========
-// ========
+// verifikasi email users
 // ========
 routeruser.get("/verify", VerifyEmail);
 

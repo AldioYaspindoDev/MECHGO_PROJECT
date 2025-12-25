@@ -5,9 +5,14 @@ import {
   updateUsers,
   deleteUsers,
   VerifyAccountService,
+  authUrl,
+  Oauth2Client,
+  getUsers,
+  getEmails,
 } from "../service/User.Service.js";
-import { findUserById } from "../repository/User.Repository.js";
+import { findUserById, createUsers } from "../repository/User.Repository.js";
 import jwt from "jsonwebtoken";
+import { google } from "googleapis";
 // ==============
 // Mengambil semua user
 // ==============
@@ -107,6 +112,74 @@ export const loginController = async (req, res) => {
       message: "Gagal Login",
       error: error.message,
     });
+  }
+};
+
+// ==============
+// login menggunakan Oauth
+// ==============
+export const loginAuth = async (req, res) => {
+  res.redirect(authUrl);
+};
+
+export const loginCallback = async (req, res) => {
+  try {
+    const code = req.query.code;
+    if (!code) {
+      return res.redirect("http://localhost:3000/login?error=no_code");
+    }
+
+    // 1. Get tokens from Google using authorization code
+    const { tokens } = await Oauth2Client.getToken(code);
+    Oauth2Client.setCredentials(tokens);
+
+    // 2. Get user info from Google
+    const oauth2 = google.oauth2({
+      auth: Oauth2Client,
+      version: "v2", // lowercase v2
+    });
+
+    const { data: userInfo } = await oauth2.userinfo.get(); // lowercase userinfo
+
+    if (!userInfo || !userInfo.email) {
+      return res.redirect("http://localhost:3000/login?error=no_user_info");
+    }
+
+    // 3. Check if user already exists in database
+    let existingUser = await getEmails(userInfo.email);
+    let userData;
+
+    if (existingUser) {
+      // User sudah ada, langsung gunakan data yang ada
+      userData = existingUser;
+    } else {
+      // User baru, buat akun baru
+      userData = await createUsers({
+        name: userInfo.name || userInfo.email.split("@")[0],
+        email: userInfo.email,
+        password: "", // OAuth tidak perlu password
+        phone: `google_${Date.now()}`, // Generate unique phone
+        is_verified: true, // OAuth user langsung verified
+      });
+    }
+
+    // 4. Generate JWT token
+    const payload = {
+      id: userData.id,
+      email: userData.email,
+      role: userData.role || "user",
+    };
+
+    const jwtToken = jwt.sign(payload, process.env.JWT_SECRET, {
+      expiresIn: "1h",
+    });
+
+    // 5. Redirect ke frontend dengan token
+    return res.redirect(`http://localhost:3000/?token=${jwtToken}`);
+  } catch (error) {
+    console.error("OAuth Error:", error.message);
+    console.error(error.stack);
+    return res.redirect("http://localhost:3000/login?error=oauth_failed");
   }
 };
 
