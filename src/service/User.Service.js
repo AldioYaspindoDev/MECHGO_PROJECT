@@ -2,7 +2,9 @@ import { GetAllUsers, createUsers, deleteUser, findUserById, getEmail, getPhone,
 import argon2 from "argon2";
 import crypto from "crypto";
 import jwt from "jsonwebtoken";
+import google from "googleapis";
 import * as emailSender from '../utils/emailSender.js';
+
 // ==========
 // ambil semua user
 // ==========
@@ -35,9 +37,10 @@ export const CreateUser = async (name, email, password, phone) => {
         is_verified: false
     });
 
-    // 4. Kirim Email SETELAH simpan database (Jangan di-return dulu!)
+    // Kirim Email SETELAH simpan database (Jangan di-return dulu!)
     try {
-        const verificationLink = `http://localhost:3000/user/verify?token=${token}`;
+        // const verificationLink = `http://localhost:3000/user/verify?token=${token}`;
+        const verificationLink = `http://localhost:5000/user/verify?token=${token}`;
         await emailSender.sendVerificationEmail(email, name, verificationLink);
     } catch (emailError) {
         console.error("Gagal kirim email:", emailError);
@@ -45,10 +48,12 @@ export const CreateUser = async (name, email, password, phone) => {
         // atau biarkan saja dan sediakan fitur "Kirim Ulang Email".
     }
 
-    // 5. Baru di-Return
     return newUser;
 }
 
+// ===========
+// verify user
+// ===========
 export const VerifyAccountService = async (token) => {
     // 1. Cari user berdasarkan token
     const user = await findUserByToken(token);
@@ -97,11 +102,16 @@ export const login = async (email, password) => {
 };
 
 // ==========
+// Auth Login Google
 // ==========
-// // ==========
-// export const AuthService {
 
-// }
+export const loginGoogle = async (email, name, phone) => {
+    const Oauth2Client = new google.auth.Oauth(
+        process.env.GOOGLE_CLIENT_ID,
+        process.env.GOOGLE_CLIENT_SECRET,
+        process.env.GOOGLE_REDIRECT_URI
+    )   
+}
 
 // ===========
 // update user

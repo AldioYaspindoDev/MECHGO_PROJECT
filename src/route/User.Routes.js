@@ -1,5 +1,13 @@
 import express from "express";
-import { allusers, createuser, editUser, loginController, userDelete, VerifyEmail } from "../controller/User.Controller.js";
+import {
+  allusers,
+  createuser,
+  editUser,
+  loginController,
+  userDelete,
+  VerifyEmail,
+  getMe,
+} from "../controller/User.Controller.js";
 
 const routeruser = express.Router();
 
@@ -18,11 +26,15 @@ routeruser.post("/", createuser);
 // ==========
 routeruser.post("/login", loginController);
 
+// ==========
+// get current user
+// ==========
+routeruser.get("/me", getMe);
+
 // ========
 // ========
 // ========
 routeruser.get("/verify", VerifyEmail);
-
 
 // =========
 // update user
@@ -35,4 +47,3 @@ routeruser.patch("/edit/:id", editUser);
 routeruser.delete("/delete/:id", userDelete);
 
 export default routeruser;
-
